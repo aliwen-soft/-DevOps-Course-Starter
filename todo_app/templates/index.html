@@ -10,9 +10,19 @@
   <div class="row">
     <div class="col-md-6">
       <h2>Items</h2>
-      <ul class="list-group mb-4">
+      <ul class="list-group my-4">
         {% for item in items %}
-          <li> {{item.title}} </li>
+          <li class="list-group-item d-flex justify-content-between align-items-center"> 
+            {{item.title}} 
+            <span class="badge badge-primary badge-pill">  {{item.status}} </span>
+            {% if item.status == "Not Started" %}
+              <form method="post" action="{{url_for("mark_complete", id = item.id)}}">
+                <button type="submit" class="btn btn-success btn-sm">
+                  Mark Complete
+                </button>     
+              </form>
+            {% endif %}
+          </li>
         {% endfor %}
       </ul>
     </div>
