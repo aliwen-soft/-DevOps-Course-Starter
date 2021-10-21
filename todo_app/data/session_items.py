@@ -78,6 +78,5 @@ def remove_item(id):
     """
     existing_items = get_items()
     updated_items = list(filter(lambda item: str(item["id"]) != id, existing_items))
-    print(updated_items)
 
     session['items'] = updated_items
