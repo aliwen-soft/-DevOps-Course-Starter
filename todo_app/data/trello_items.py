@@ -44,16 +44,16 @@ def get_item(id):
     items = get_items()
     return next((item for item in items if item['id'] == int(id)), None)
 
-def change_item_status(id, name):
+def change_item_status(id, new_status):
     """
     Changes the item with specified id to specified status 
 
     Args:
         id: The ID of the item.
-        status: the status to be changed too
+        new_status: the status to be changed too
 
     """
-    list_id = get_list_id_with_name(name)
+    list_id = get_list_id_with_list_name(new_status)
 
     update_card_url = TRELLO_BASE_URL+ "/1/cards/" + id
     update_card_params = {**auth_payload , "idList":list_id } 
@@ -100,7 +100,7 @@ def get_status_from_response_item(item):
     status = r.json().get("name")
     return status
 
-def get_list_id_with_name(name):
+def get_list_id_with_list_name(name):
     lists_url = TRELLO_BASE_URL+ "/1/board/"+config.TRELLO_BOARD_ID+"/lists/"
     lists_params = {**auth_payload , "fields":"id,name" } 
     r=get(url=lists_url, params=lists_params)
