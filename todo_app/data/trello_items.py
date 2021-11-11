@@ -2,12 +2,17 @@ from requests import get, put, post, delete
 from todo_app.flask_config import Config
 from todo_app.data.todo_item import TodoItem, TODO_STATUS
 from todo_app.api_exception import ApiException
+import datetime
 
 TRELLO_BASE_URL="https://api.trello.com"
 
 config = Config()
 
 auth_payload = {"key": config.TRELLO_API_KEY, "token": config.TRELLO_API_TOKEN}
+
+def trello_date_time_to_date_time(date_time_str):
+    date_time_obj = datetime.datetime.strptime(date_time_str, '%Y-%m-%dT%H:%M:%S.%fZ')
+    return(date_time_obj)
 
 def get_items():
     """
@@ -19,7 +24,7 @@ def get_items():
   
     url = TRELLO_BASE_URL+ "/1/boards/" + config.TRELLO_BOARD_ID + "/cards"
 
-    params = {**auth_payload , "fields":"id,name,idList" } 
+    params = {**auth_payload , "fields":"id,name,dateLastActivity,idList" } 
 
     r=get(url=url, params=params)
 
@@ -28,7 +33,12 @@ def get_items():
         response = r.json()
 
         todo_items = map(
-            lambda response_item: TodoItem(response_item.get("id"), response_item.get("name"),  get_status_from_response_item(response_item)),
+            lambda response_item: TodoItem(
+                response_item.get("id"),
+                response_item.get("name"),
+                trello_date_time_to_date_time(response_item.get("dateLastActivity")),
+                get_status_from_response_item(response_item)
+                ),
             response
             )
     
@@ -94,7 +104,7 @@ def add_item(title):
 
         respose_item = r.json()
 
-        return TodoItem(respose_item.get("id"), respose_item.get("name"))
+        return TodoItem(respose_item.get("id"), respose_item.get("name"), respose_item.get("dateLastActivity"))
 
     raise ApiException(r.status_code,"There was an issue while trying to create an item")
 
