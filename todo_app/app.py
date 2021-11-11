@@ -1,8 +1,8 @@
 from flask import Flask, render_template, redirect, request
-from todo_app.ViewModel import ViewModel
 from todo_app.flask_config import Config
 from todo_app.data.trello_items import get_items, change_item_status, add_item, remove_item
 from todo_app.data.todo_item import TODO_STATUS, DONE_STATUS, DOING_STATUS 
+from todo_app.view_model import ViewModel
 
 app = Flask(__name__)
 app.config.from_object(Config())

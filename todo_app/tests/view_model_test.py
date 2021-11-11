@@ -18,3 +18,25 @@ def item_view_model():
 
 def test_get_items(item_view_model):
     assert len(item_view_model.items) == 6
+
+def test_get_todo(item_view_model):
+    items = item_view_model.todo_items
+
+    assert len(items) == 2
+    assert any(item.id == 0 for item in items)
+    assert any(item.id == 1 for item in items)
+
+def test_get_doing(item_view_model):
+    items = item_view_model.doing_items
+
+    assert len(items) == 2
+    assert any(item.id == 2 for item in items)
+    assert any(item.id == 3 for item in items)
+
+def test_get_done(item_view_model):
+    items = item_view_model.done_items
+
+    assert len(items) == 2
+    assert any(item.id == 4 for item in items)
+    assert any(item.id == 5 for item in items)
+
