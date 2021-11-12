@@ -67,7 +67,7 @@
            </ul>
           <a class="btn btn-sm btn-outline-primary" data-toggle="collapse" href="#collapseMore" role="button" >Toggle Older Compelted</a>
           <ul class="collapse list-group my-4" id="collapseMore">
-          {% for item in item_view_model.recent_done_items %}
+          {% for item in item_view_model.older_done_items %}
             <li class="list-group-item d-flex justify-content-between align-items-center"> 
               {{item.title}} 
                 <form method="post" action="{{url_for("mark_todo", id = item.id)}}">

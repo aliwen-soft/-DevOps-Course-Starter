@@ -27,9 +27,9 @@ class ViewModel:
 
     @property
     def recent_done_items(self):
-        return list(filter(lambda item: item.last_modified.day == datetime.now().day , self._items))
+        return list(filter(lambda item: item.last_modified.day == datetime.now().day , self.done_items))
 
     @property
     def older_done_items(self):
-        return list(filter(lambda item: item.last_modified.day < datetime.now().day , self._items))
+        return list(filter(lambda item: item.last_modified.day < datetime.now().day , self.done_items))
 

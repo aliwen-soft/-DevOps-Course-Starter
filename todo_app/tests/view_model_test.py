@@ -4,19 +4,11 @@ from todo_app.view_model import ViewModel
 from todo_app.data.todo_item import TodoItem, TODO_STATUS, DOING_STATUS, DONE_STATUS
 import pytest
 import datetime
+from freezegun import freeze_time
 
 test_now = datetime.datetime(2021, 11, 11, 10, 00, 55)
 test_today = datetime.datetime(2021, 11, 11, 9, 00, 55)
 test_yesterday = datetime.datetime(2021, 11, 10, 10, 00, 55)
-
-@pytest.fixture
-def mock_datetime_now(monkeypatch):
-    class my_date_time:
-        @classmethod
-        def now(cls):
-            return test_now
-
-    monkeypatch.setattr(datetime, 'datetime', my_date_time)
 
 @pytest.fixture
 def item_view_model():
@@ -70,7 +62,8 @@ def test_should_not_show_all_done_items_when_five_or_more():
 
     assert not view_model.should_show_all_done_items
 
-def test_show_today_items(mock_datetime_now):
+@freeze_time(test_now)
+def test_show_today_items():
     items=[
         TodoItem(0,"item done",test_today, DONE_STATUS),
         TodoItem(1,"item done",test_today, DONE_STATUS),
@@ -89,7 +82,8 @@ def test_show_today_items(mock_datetime_now):
     assert not any(item.id == 3 for item in items)
     assert not any(item.id == 4 for item in items)
 
-def test_show_older_items(mock_datetime_now):
+@freeze_time(test_now)
+def test_show_older_items():
     items=[
         TodoItem(0,"item done",test_today, DONE_STATUS),
         TodoItem(1,"item done",test_today, DONE_STATUS),
