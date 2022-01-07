@@ -79,7 +79,7 @@ def change_item_status(config, id, new_status):
 
     auth_payload = get_auth_payload(config)
 
-    list_id = get_list_id_with_list_name(new_status)
+    list_id = get_list_id_with_list_name(config, new_status)
 
     update_card_url = TRELLO_BASE_URL+ "/1/cards/" + id
     update_card_params = {**auth_payload , "idList":list_id } 
