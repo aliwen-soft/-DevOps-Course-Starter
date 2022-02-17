@@ -45,9 +45,6 @@ TRELLO_BOARD_ID : the ID of the board you are using. You can use the following A
 
 `Get https://api.trello.com/1/members/me/boards?fields=name,url&key={Your-Api-Key}&token={Your-Access-token}`
 
-
-
-
 ## Running the App
 
 Once the all dependencies have been installed, start the Flask app in development mode within the poetry environment by running:
@@ -76,3 +73,13 @@ $ poetry run pytest
 ```
 
 this should discover and run all tests in the project. when adding a test please add the file to the tests folder with a _test suffix
+
+## Running the App via Ansible on the VM
+
+On the control node run
+
+```
+ ansible-playbook playbook.yml -i inventory --vault-id tbs@prompt
+```
+
+You will be prompted for the vault password
