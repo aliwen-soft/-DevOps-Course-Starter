@@ -19,7 +19,8 @@
     file:
       path: /opt/todoapp
       state: directory
-      mode: u=rwx,g=rwx,o=rwx
+      owner: ec2-user
+      mode: u=rwx,g=r,o=r
     become: yes
   - name: Git checkout
     git:
@@ -31,7 +32,7 @@
     ansible.builtin.template:
       src: .env.j2
       dest: /opt/todoapp/.env
-      mode: u=xrw,g=r,o=r
+      mode: u=xrw
   - name: perform poetry install
     command: /home/ec2-user/.local/bin/poetry install
     args:
