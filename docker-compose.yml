@@ -1,0 +1,14 @@
+version: "3"
+
+services:
+  dev:
+    image: "todoapp:dev"
+    build: .
+    ports:
+      - "5000:5000"
+    env_file: 
+      - ".env"
+    volumes:
+     - type=bind
+       source=/todo_app
+       target=/app/todo_app
