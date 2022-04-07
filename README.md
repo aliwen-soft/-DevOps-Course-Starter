@@ -83,3 +83,16 @@ On the control node run
 ```
 
 You will be prompted for the vault password
+
+## Running the App using Docker
+
+To run on the dev environment use:
+
+```
+docker-compose up
+```
+
+To run on the prod environment use:
+```
+docker run -p 3000:3000 --env-file .env todo-app:prod
+```
