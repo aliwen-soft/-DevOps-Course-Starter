@@ -1,5 +1,16 @@
 name: Continuous Integration
-on: [push]
+on: 
+  pull_request:
+    branches:
+      -main
+    paths-ignore:
+      - 'documentation/**'
+      - 'README.mb'
+  push:
+    paths-ignore:
+      - 'documentation/**'
+      - 'README.mb'
+
 
 jobs:
   build:
