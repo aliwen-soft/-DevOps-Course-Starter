@@ -5,11 +5,11 @@ on:
       -main
     paths-ignore:
       - 'documentation/**'
-      - 'README.mb'
+      - 'README.md'
   push:
     paths-ignore:
       - 'documentation/**'
-      - 'README.mb'
+      - 'README.md'
 
 
 jobs:
