@@ -97,3 +97,6 @@ To run on the prod environment use:
 docker build --target production --tag todo-app:prod .
 docker run -p 3000:3000 --env-file .env todo-app:prod
 ```
+## Pipeline
+
+The github pipeline i set to trigger on pullrequest to main and on pushes as long as its not just documentation.
