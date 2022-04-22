@@ -4,7 +4,7 @@ RUN pip install "poetry==1.1.4"
 
 WORKDIR /app
 
-COPY poetry.lock pyproject.toml pytest.ini .
+COPY poetry.lock pyproject.toml pytest.ini ./
 RUN poetry install
 
 COPY todo_app todo_app/
