@@ -106,4 +106,4 @@ docker run --env-file .env.test todo-app:test
 
 ## Pipeline
 
-The github pipeline i set to trigger on pullrequest to main and on pushes as long as its not just documentation.
+The github pipeline is set to trigger on pull requests to main and on pushes as long as its not just documentation.
