@@ -24,7 +24,7 @@ jobs:
     name: Deploy main branch
     needs: build
     runs-on: ubuntu-latest
-    if: (github.event_name == 'push' && github.ref == 'Module-Eight')
+    if: (github.event_name == 'push' && github.ref == 'refs/heads/Module-Eight')
     steps:
     - uses: actions/checkout@v2
     - run: echo "Publishing!"
