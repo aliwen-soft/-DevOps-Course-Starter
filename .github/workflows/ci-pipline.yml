@@ -32,4 +32,7 @@ jobs:
       with:
         username: 'aliwen'
         password: ${{ secrets.DOCKER_ACCESS_TOKEN }}
+    - run: docker build --target production --tag aliwen/todo_app:$GITHUB_SHA .
+    - run: docker push aliwen/todo_app:$GITHUB_SHA
+
   
