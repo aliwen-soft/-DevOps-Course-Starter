@@ -5,13 +5,13 @@ RUN pip install "poetry==1.1.4"
 WORKDIR /app
 
 COPY poetry.lock pyproject.toml pytest.ini ./
-RUN poetry install
+RUN poetry config virtualenvs.create false --local && poetry install
 
 COPY todo_app todo_app/
 
 From base as production
-EXPOSE 3000
-CMD ["poetry","run","gunicorn","-w","4","-b","0.0.0.0:3000","todo_app.wsgi:app"]
+EXPOSE $PORT
+CMD poetry run gunicorn "todo_app.app:create_app()" -- bind 0.0.0.0:$PORT
 
 From base as development
 EXPOSE 5000
