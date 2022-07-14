@@ -34,8 +34,7 @@ jobs:
         password: ${{ secrets.DOCKER_ACCESS_TOKEN }}
     - run: docker build --target production --tag aliwen/todo_app:latest
     - run: docker push aliwen/todo_app:latest
-    - script:
-      -  curl -dH POST ${{secrets.WEB_HOOK}}
+    - run: curl -dH POST ${{secrets.WEB_HOOK}}
   publish:
     runs-on: ubuntu-latest
     needs: deploy
