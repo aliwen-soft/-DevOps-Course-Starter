@@ -32,18 +32,13 @@ $ cp .env.template .env  # (first time only)
 
 The `.env` file is used by flask to set environment variables when running `flask run`. This enables things like development mode (which also enables features like hot reloading when you make a file change). There's also a [SECRET_KEY](https://flask.palletsprojects.com/en/1.1.x/config/#SECRET_KEY) variable which is used to encrypt the flask session cookie.
 
-### Adding Trello API variables
+### Adding ENV variables
 
-To interact with the Trello API after cloning the .env file you need to change the following variables:
+To interact with the Database after cloning the .env file you need to change the following variables:
 
-TRELLO_API_KEY: [Your API key](https://trello.com/app-key) in order to access the api 
+TODO_CONNECTION_STRING: Your MongoDB connection string
+TODO_DB_NAME: Your database name
 
-TRELLO_API_TOKEN: [Your Api Token](https://trello.com/app-key) this autherises your login to access your boards
-
-TRELLO_BOARD_ID : the ID of the board you are using. You can use the following API call to find the IDs of your boards
-
-
-`Get https://api.trello.com/1/members/me/boards?fields=name,url&key={Your-Api-Key}&token={Your-Access-token}`
 
 ## Running the App
 
