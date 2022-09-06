@@ -1,6 +1,6 @@
 FROM python:3.9-buster as base
 
-RUN pip install "poetry==1.1.4"
+RUN pip install "poetry==1.2.0"
 
 WORKDIR /app
 

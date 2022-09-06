@@ -110,4 +110,4 @@ docker run --env-file .env.test todo-app:test
 The github pipeline is set to trigger on pull requests to main and on pushes as long as its not just documentation.
 
 ## Deployment
-The app should deploy when you push to main the app can be seen  [`here`](https://todo-app-aliwen.herokuapp.com/)
+The app should deploy when you push to main the app can be seen  [`here`](https://todo-app-aliwen-webapp.azurewebsites.net/)
