@@ -6,10 +6,9 @@ import os
 
 
 @pytest.fixture
-def client(monkeypatch):
+def client():
     filepath = find_dotenv(".env.test")
     load_dotenv(filepath, override=True)
-    monkeypatch.setenv('TODO_CONNECTION_STRING', 'fakemongo.com:27017')
 
     with mongomock.patch(servers=(('fakemongo.com', 27017),)):
         test_app = app.create_app()
