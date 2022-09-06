@@ -4,7 +4,6 @@ from todo_app.data.todo_item import TodoItem, TODO_STATUS
 from todo_app.api_exception import ApiException
 import datetime
 
-
 TRELLO_BASE_URL="https://api.trello.com"
 
 def get_auth_payload(config):
