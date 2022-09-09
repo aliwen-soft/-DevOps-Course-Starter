@@ -1,4 +1,5 @@
 import os
+from re import S
 
 
 class Config:
@@ -8,6 +9,8 @@ class Config:
         self.DB_CONNECTION_STRING = os.environ.get('TODO_CONNECTION_STRING')
      
         self.DB_NAME = os.environ.get('TODO_DB_NAME')
+        
+        self.CLIENT_ID = os.environ.get('GH_CLIENT_ID')
 
         if not (self.DB_CONNECTION_STRING and self.DB_NAME):
             raise ValueError(
