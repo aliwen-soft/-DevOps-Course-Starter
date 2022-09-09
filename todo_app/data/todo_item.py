@@ -2,8 +2,9 @@ TODO_STATUS = "To Do"
 DOING_STATUS = "Doing"
 DONE_STATUS = "Done"
 
+
 class TodoItem:
-    def __init__(self, id, title, last_modified, status = TODO_STATUS):
+    def __init__(self, id, title, last_modified, status=TODO_STATUS):
         self.id = id
         self.status = status
         self.title = title

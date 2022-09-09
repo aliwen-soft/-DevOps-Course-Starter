@@ -1,16 +1,14 @@
 import os
 
+
 class Config:
     def __init__(self):
         """Base configuration variables."""
-        self.TRELLO_BOARD_ID = os.environ.get('TRELLO_BOARD_ID')
 
-        self.TRELLO_API_KEY = os.environ.get('TRELLO_API_KEY')
+        self.DB_CONNECTION_STRING = os.environ.get('TODO_CONNECTION_STRING')
      
-        self.TRELLO_API_TOKEN = os.environ.get('TRELLO_API_TOKEN')
-        
-        if not (self.TRELLO_BOARD_ID and self.TRELLO_API_KEY and self.TRELLO_API_TOKEN) :
-            raise ValueError("Trello secrets not set up. Did you follow the setup instructions?")
+        self.DB_NAME = os.environ.get('TODO_DB_NAME')
 
-
- 
+        if not (self.DB_CONNECTION_STRING and self.DB_NAME):
+            raise ValueError(
+                "Database secrets secrets not set up. Did you follow the setup instructions?")
