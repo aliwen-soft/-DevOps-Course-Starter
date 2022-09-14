@@ -33,7 +33,8 @@ def create_app():
         items = get_items(config)
         items = sorted(items, key=lambda item: item.get_ordering_index())
         item_view_model = ViewModel(items)
-        return render_template("index.html", item_view_model=item_view_model, isWriter=current_user.role == UserRoles.WRITER)
+        isWriter = current_user.is_anonymous or current_user.role == UserRoles.WRITER
+        return render_template("index.html", item_view_model=item_view_model, isWriter=isWriter)
 
     @app.route('/login/callback')
     def user_log_in():
