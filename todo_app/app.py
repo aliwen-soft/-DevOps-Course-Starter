@@ -1,10 +1,10 @@
-import imp
 from flask import Flask, render_template, redirect, request
 from todo_app.flask_config import Config
 from todo_app.data.db_items import get_items, change_item_status, add_item, remove_item
 from todo_app.data.todo_item import TODO_STATUS, DONE_STATUS, DOING_STATUS
 from todo_app.view_model import ViewModel
-from flask_login import LoginManager, login_required
+from todo_app.user.user import User, UserRoles, requireWriter
+from flask_login import LoginManager, login_required, login_user, current_user
 import requests
 
 
@@ -23,7 +23,7 @@ def create_app():
 
     @login_manager.user_loader
     def load_user(user_id):
-        pass  # We will return to this later
+        return User(user_id)
 
     login_manager.init_app(app)
 
@@ -33,49 +33,68 @@ def create_app():
         items = get_items(config)
         items = sorted(items, key=lambda item: item.get_ordering_index())
         item_view_model = ViewModel(items)
-        return render_template("index.html", item_view_model=item_view_model)
+        return render_template("index.html", item_view_model=item_view_model, isWriter=current_user.role == UserRoles.WRITER)
 
     @app.route('/login/callback')
     def user_log_in():
         code = request.args.get("code")
 
         data = {
-            "client_id": config.CLIENT_ID
+            "client_id": config.CLIENT_ID,
+            "client_secret": config.CLIENT_SECRET,
+            "code": code
         }
 
-        access_token_response = x = requests.post(
-            "https://github.com/login/oauth/access_token")
+        access_token_response = requests.post(
+            "https://github.com/login/oauth/access_token", params=data, headers={"Accept": "application/json"})
 
-        print(code)
+        access_token_response = access_token_response.json()
+        access_token = access_token_response['access_token']
 
-        return redirect("/ah")
+        user_info_response = requests.get("https://api.github.com/user",
+                                          headers={"Accept": "application/json", "Authorization": "Bearer {}".format(access_token)})
 
-    @app.route('/add-todo', methods=['POST'])
-    @login_required
+        user_info = user_info_response.json()
+
+        print("logging in as: " + user_info["login"])
+
+        user = User(user_info["id"])
+
+        login_user(user)
+
+        return redirect("/")
+
+    @ app.route('/add-todo', methods=['POST'])
+    @ login_required
+    @ requireWriter
     def add_todo():
         add_item(config, request.form.get("title"))
         return redirect("/")
 
-    @app.route('/remove-todo/<id>', methods=['POST'])
-    @login_required
+    @ app.route('/remove-todo/<id>', methods=['POST'])
+    @ login_required
+    @ requireWriter
     def remove_todo(id):
         remove_item(config, id)
         return redirect("/")
 
-    @app.route('/mark-complete/<id>', methods=['POST'])
-    @login_required
+    @ app.route('/mark-complete/<id>', methods=['POST'])
+    @ login_required
+    @ requireWriter
     def mark_complete(id):
         change_item_status(config, id, DONE_STATUS)
         return redirect("/")
 
-    @app.route('/mark-doing/<id>', methods=['POST'])
-    @login_required
+    @ app.route('/mark-doing/<id>', methods=['POST'])
+    @ login_required
+    @ requireWriter
     def mark_doing(id):
         change_item_status(config, id, DOING_STATUS)
         return redirect("/")
 
-    @app.route('/mark-todo/<id>', methods=['POST'])
-    @login_required
+    @ app.route('/mark-todo/<id>', methods=['POST'])
+    @ login_required
+    @ requireWriter
     def mark_todo(id):
         change_item_status(config, id, TODO_STATUS)
         return redirect("/")
