@@ -1,5 +1,4 @@
 variable "prefix" {
-    default = "aliwen"
   description = "The prefix used for all resources in this environment"
 }
 
@@ -8,16 +7,16 @@ variable "location" {
   default     = "ukwest"
 }
 
-variable "GITHUB_ID" {
+variable "github_id" {
   default   = "84146538b09bfb3175d6"
   sensitive = true
 }
 
-variable "GITHUB_SECRET" {
+variable "github_secret" {
   sensitive = true
 }
 
-variable "TODO_SECRET" {
+variable "todo_secret" {
   sensitive = true
 }
 

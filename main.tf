@@ -16,7 +16,7 @@ data "azurerm_resource_group" "main" {
 }
 
 resource "azurerm_app_service_plan" "main" {
-  name                = "terraformed-asp"
+  name                = "${var.prefix}-terraformed-asp"
   location            = data.azurerm_resource_group.main.location
   resource_group_name = data.azurerm_resource_group.main.name
   kind                = "Linux"
@@ -74,9 +74,9 @@ resource "azurerm_app_service" "main" {
 
   app_settings = {
     "DOCKER_REGISTRY_SERVER_URL" = "https://aliwen"
-    "GH_CLIENT_ID"               = "${var.GITHUB_ID}"
-    "GH_CLIENT_SECRET"           = "${var.GITHUB_SECRET}"
-    "SECRET_TODO"                = "${var.TODO_SECRET}"
+    "GH_CLIENT_ID"               = "${var.github_id}"
+    "GH_CLIENT_SECRET"           = "${var.github_secret}"
+    "SECRET_TODO"                = "${var.todo_secret}"
     "TODO_CONNECTION_STRING"     = azurerm_cosmosdb_account.main.connection_strings[0]
     "TODO_DB_NAME"               = azurerm_cosmosdb_mongo_database.main.name
   }
