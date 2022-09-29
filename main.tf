@@ -74,9 +74,9 @@ resource "azurerm_app_service" "main" {
 
   app_settings = {
     "DOCKER_REGISTRY_SERVER_URL" = "https://aliwen"
-    "GH_CLIENT_ID"               = "${var.github_id}"
-    "GH_CLIENT_SECRET"           = "${var.github_secret}"
-    "SECRET_TODO"                = "${var.todo_secret}"
+    "GH_CLIENT_ID"               = "${var.GITHUB_ID}"
+    "GH_CLIENT_SECRET"           = "${var.GITHUB_SECRET}"
+    "SECRET_TODO"                = "${var.TODO_SECRET}"
     "TODO_CONNECTION_STRING"     = azurerm_cosmosdb_account.main.connection_strings[0]
     "TODO_DB_NAME"               = azurerm_cosmosdb_mongo_database.main.name
   }
