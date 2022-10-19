@@ -3,7 +3,7 @@ from todo_app.flask_config import Config
 from todo_app.data.db_items import get_items, change_item_status, add_item, remove_item
 from todo_app.data.todo_item import TODO_STATUS, DONE_STATUS, DOING_STATUS
 from todo_app.view_model import ViewModel
-from todo_app.user.user import User, UserRoles, requireWriter
+from todo_app.user.user import User, requireWriter, isWriter
 from flask_login import LoginManager, login_required, login_user, current_user
 import requests
 
@@ -33,8 +33,7 @@ def create_app():
         items = get_items(config)
         items = sorted(items, key=lambda item: item.get_ordering_index())
         item_view_model = ViewModel(items)
-        isWriter = current_user.is_anonymous or current_user.role == UserRoles.WRITER
-        return render_template("index.html", item_view_model=item_view_model, isWriter=isWriter)
+        return render_template("index.html", item_view_model=item_view_model, isWriter=isWriter())
 
     @app.route('/login/callback')
     def user_log_in():
@@ -57,7 +56,7 @@ def create_app():
 
         user_info = user_info_response.json()
 
-        print("logging in as: " + user_info["login"])
+        print("logging in as: " + user_info["id"])
 
         user = User(user_info["id"])
 
