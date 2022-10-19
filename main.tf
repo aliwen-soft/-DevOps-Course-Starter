@@ -73,7 +73,7 @@ resource "azurerm_app_service" "main" {
   }
 
   app_settings = {
-    "DOCKER_REGISTRY_SERVER_URL" = "https://aliwen"
+    "DOCKER_REGISTRY_SERVER_URL" = "https://index.docker.io"
     "GH_CLIENT_ID"               = "${var.github_id}"
     "GH_CLIENT_SECRET"           = "${var.github_secret}"
     "SECRET_TODO"                = "${var.todo_secret}"
