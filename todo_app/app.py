@@ -56,7 +56,7 @@ def create_app():
 
         user_info = user_info_response.json()
 
-        print("logging in as: " + user_info["id"])
+        print("logging in as: " + str(user_info["id"]))
 
         user = User(user_info["id"])
 
