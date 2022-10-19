@@ -43,6 +43,7 @@ resource "azurerm_cosmosdb_account" "main" {
     name = "EnableServerless"
   }
 
+
   consistency_policy {
     consistency_level = "BoundedStaleness"
   }
@@ -69,9 +70,6 @@ resource "azurerm_linux_web_app" "main" {
   service_plan_id     = azurerm_app_service_plan.main.id
 
   site_config {
-    linux_fx_version = "DOCKER|aliwen/todo_app:latest"
-
-
     application_stack {
       docker_image     = "aliwen/todo_app"
       docker_image_tag = "latest"
