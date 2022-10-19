@@ -62,11 +62,11 @@ resource "azurerm_cosmosdb_mongo_database" "main" {
 }
 
 
-resource "azurerm_app_service" "main" {
+resource "azurerm_linux_web_app" "main" {
   name                = "${var.prefix}-todo-app"
   location            = data.azurerm_resource_group.main.location
   resource_group_name = data.azurerm_resource_group.main.name
-  app_service_plan_id = azurerm_app_service_plan.main.id
+  service_plan_id     = azurerm_app_service_plan.main.id
 
   site_config {
     linux_fx_version = "DOCKER|aliwen/todo_app:latest"
