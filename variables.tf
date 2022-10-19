@@ -19,3 +19,10 @@ variable "github_secret" {
 variable "todo_secret" {
   sensitive = true
 }
+variable "loggly_secret" {
+  sensitive = true
+}
+
+variable "log_level" {
+  default = "DEBUG"
+}
