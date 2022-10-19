@@ -15,17 +15,14 @@ data "azurerm_resource_group" "main" {
   name = "Softwire21_AliceWenban_ProjectExercise"
 }
 
-resource "azurerm_app_service_plan" "main" {
+resource "azurerm_service_plan" "main" {
   name                = "${var.prefix}-terraformed-asp"
   location            = data.azurerm_resource_group.main.location
   resource_group_name = data.azurerm_resource_group.main.name
-  kind                = "Linux"
+  os_type             = "Linux"
   reserved            = true
+  sku_name            = "B1"
 
-  sku {
-    tier = "Basic"
-    size = "B1"
-  }
 }
 
 resource "azurerm_cosmosdb_account" "main" {
