@@ -70,8 +70,13 @@ resource "azurerm_linux_web_app" "main" {
 
   site_config {
     linux_fx_version = "DOCKER|aliwen/todo_app:latest"
-  }
 
+
+    application_stack {
+      docker_image     = "aliwen/todo_app"
+      docker_image_tag = "latest"
+    }
+  }
   app_settings = {
     "DOCKER_REGISTRY_SERVER_URL" = "https://index.docker.io"
     "GH_CLIENT_ID"               = "${var.github_id}"
