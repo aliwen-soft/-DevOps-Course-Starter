@@ -6,6 +6,18 @@ from todo_app.view_model import ViewModel
 from todo_app.user.user import User, requireWriter, isWriter
 from flask_login import LoginManager, login_required, login_user, current_user
 import requests
+from loggly.handlers import HTTPSHandler
+from logging import Formatter
+
+def set_up_logging(app):
+    app.logger.setLevel(app.config['LOG_LEVEL'])
+    
+    if app.config['LOGGLY_TOKEN'] is not None:
+        handler = HTTPSHandler( f'https://logs-01.loggly.com/inputs/{app.config["LOGGLY_TOKEN"]}/tag/todo-app')
+
+        handler.setFormatter(Formatter("[%(asctime)s] %(levelname)s in %(module)s: %(message)s"))
+
+        app.logger.addHandler(handler)
 
 
 def create_app():
@@ -16,8 +28,11 @@ def create_app():
 
     login_manager = LoginManager()
 
+    set_up_logging(app)
+ 
     @login_manager.unauthorized_handler
     def unauthenticated():
+        app.logger.info("redirecting to github login")
         github_login = "https://github.com/login/oauth/authorize?client_id=" + config.CLIENT_ID
         return redirect(github_login)
 
@@ -56,7 +71,7 @@ def create_app():
 
         user_info = user_info_response.json()
 
-        print("logging in as: " + str(user_info["id"]))
+        app.logger.info("logging in as: %s", user_info["id"])
 
         user = User(user_info["id"])
 
@@ -68,6 +83,7 @@ def create_app():
     @ login_required
     @ requireWriter
     def add_todo():
+        app.logger.info("Adding Item %s ", request.form.get("title"))
         add_item(config, request.form.get("title"))
         return redirect("/")
 
@@ -75,6 +91,7 @@ def create_app():
     @ login_required
     @ requireWriter
     def remove_todo(id):
+        app.logger.info("Removing item with id %s", id)
         remove_item(config, id)
         return redirect("/")
 
