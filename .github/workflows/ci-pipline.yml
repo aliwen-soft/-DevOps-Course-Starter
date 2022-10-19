@@ -11,17 +11,6 @@ on:
       - 'documentation/**'
       - 'README.md'
 
-env:
-  TF_VAR_prefix: 'aliwen-gh'
-  TF_VAR_todo_secret: ${{ secrets.TF_VAR_TODO_SECRET }}
-  TF_VAR_github_id: ${{ secrets.TF_VAR_GITHUB_ID }}
-  TF_VAR_github_secret: ${{ secrets.TF_VAR_GITHUB_SECRET }}
-  ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
-  ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
-  ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
-  ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
-
-
 
 jobs:
   build:
@@ -45,9 +34,7 @@ jobs:
         password: ${{ secrets.DOCKER_ACCESS_TOKEN }}
     - run: docker build --target production --tag aliwen/todo_app:latest .
     - run: docker push aliwen/todo_app:latest
-    - run: terraform init
-    - run: terraform apply -auto-approve
-    - run: curl -dH -X POST "$(terraform output -raw webhook_url)" --fail
+    - run: curl -dH -X POST ${{secrets.WEB_HOOK}} --fail
   publish:
     runs-on: ubuntu-latest
     needs: deploy
