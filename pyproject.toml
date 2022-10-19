@@ -6,7 +6,7 @@ authors = []
 
 [tool.poetry.dependencies]
 python = "^3.7"
-flask = "^1.1.2"
+flask = "^1.1.4"
 python-dotenv = "^0.14.0"
 requests = "^2.26.0"
 pytest = "^6.2.5"
@@ -15,10 +15,10 @@ gunicorn = "^20.1.0"
 pymongo = "^4.1.1"
 mongomock = "^4.1.2"
 pytest-env = "^0.6.2"
+Flask-Login = "^0.6.2"
+MarkupSafe = "2.0.1"
 
 [tool.poetry.dev-dependencies]
-
-[tool.poetry.group.dev.dependencies]
 autopep8 = "^1.7.0"
 
 [build-system]

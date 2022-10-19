@@ -15,11 +15,13 @@
         {% for item in item_view_model.todo_items %}
           <li class="list-group-item d-flex justify-content-between align-items-center"> 
             {{item.title}} 
+            {% if isWriter %}
               <form method="post" action="{{url_for("mark_doing", id = item.id)}}">
                 <button type="submit" class="btn btn-outline-info btn-sm">
                   Mark in progress
                 </button>     
               </form>
+              {% endif %}
             </li>
        {% endfor %}
        </ul>
@@ -29,11 +31,13 @@
        {% for item in item_view_model.doing_items %}
           <li class="list-group-item d-flex justify-content-between align-items-center"> 
             {{item.title}} 
+            {% if isWriter %}
               <form method="post" action="{{url_for("mark_complete", id = item.id)}}">
                 <button type="submit" class="btn btn-outline-success btn-sm">
                   Mark Complete
                 </button>     
               </form>
+              {% endif %}
             </li>
        {% endfor %}
       </ul>
@@ -44,11 +48,13 @@
           {% for item in item_view_model.done_items %}
             <li class="list-group-item d-flex justify-content-between align-items-center"> 
               {{item.title}} 
+              {% if isWriter %}
                 <form method="post" action="{{url_for("mark_todo", id = item.id)}}">
                   <button type="submit" class="btn btn-outline-secondary btn-sm">
                     Mark To do
                   </button>     
                 </form>
+              {% endif %}
               </li>
         {% endfor %}
         </ul>
@@ -57,11 +63,13 @@
         {% for item in item_view_model.recent_done_items %}
             <li class="list-group-item d-flex justify-content-between align-items-center"> 
               {{item.title}} 
+              {% if isWriter %}
                 <form method="post" action="{{url_for("mark_todo", id = item.id)}}">
                   <button type="submit" class="btn btn-outline-secondary btn-sm">
                     Mark To do
                   </button>     
                 </form>
+              {%endif%}
               </li>
         {% endfor %}
            </ul>
@@ -70,11 +78,13 @@
           {% for item in item_view_model.older_done_items %}
             <li class="list-group-item d-flex justify-content-between align-items-center"> 
               {{item.title}} 
+              {% if isWriter %}
                 <form method="post" action="{{url_for("mark_todo", id = item.id)}}">
                   <button type="submit" class="btn btn-outline-secondary btn-sm">
                     Mark To do
                   </button>     
                 </form>
+                {%endif%}
               </li>
         {% endfor %}
         </ul>
@@ -82,6 +92,7 @@
 
     </div>
     <div class="col-md-6">
+      {% if isWriter %}
     <h2>Add Item</h2>
       <form method="post" action="{{url_for("add_todo")}}">
         <div class = "form-group"/>
@@ -90,6 +101,7 @@
         </div>
         <button type ="submit" class = "btn btn-primary">Add Item</button>
       </form>
+      {% endif %}
     </div>
   </div>
 {% endblock %}
