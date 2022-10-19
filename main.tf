@@ -29,7 +29,7 @@ resource "azurerm_app_service_plan" "main" {
 }
 
 resource "azurerm_cosmosdb_account" "main" {
-  name                = "${var.prefix}-cosmos-db-account"
+  name                = "${var.prefix}-cosmos-db-account-${random_integer.ri.result}"
   location            = data.azurerm_resource_group.main.location
   resource_group_name = data.azurerm_resource_group.main.name
   offer_type          = "Standard"
