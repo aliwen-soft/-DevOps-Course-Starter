@@ -15,17 +15,13 @@ data "azurerm_resource_group" "main" {
   name = "Softwire21_AliceWenban_ProjectExercise"
 }
 
-resource "azurerm_app_service_plan" "main" {
+resource "azurerm_service_plan" "main" {
   name                = "${var.prefix}-terraformed-asp"
   location            = data.azurerm_resource_group.main.location
   resource_group_name = data.azurerm_resource_group.main.name
-  kind                = "Linux"
-  reserved            = true
+  os_type             = "Linux"
+  sku_name            = "B1"
 
-  sku {
-    tier = "Basic"
-    size = "B1"
-  }
 }
 
 resource "azurerm_cosmosdb_account" "main" {
@@ -42,6 +38,7 @@ resource "azurerm_cosmosdb_account" "main" {
   capabilities {
     name = "EnableServerless"
   }
+
 
   consistency_policy {
     consistency_level = "BoundedStaleness"
@@ -66,12 +63,14 @@ resource "azurerm_linux_web_app" "main" {
   name                = "${var.prefix}-todo-app"
   location            = data.azurerm_resource_group.main.location
   resource_group_name = data.azurerm_resource_group.main.name
-  service_plan_id     = azurerm_app_service_plan.main.id
+  service_plan_id     = azurerm_service_plan.main.id
 
   site_config {
-    linux_fx_version = "DOCKER|aliwen/todo_app:latest"
+    application_stack {
+      docker_image     = "aliwen/todo_app"
+      docker_image_tag = "latest"
+    }
   }
-
   app_settings = {
     "DOCKER_REGISTRY_SERVER_URL" = "https://index.docker.io"
     "GH_CLIENT_ID"               = "${var.github_id}"
