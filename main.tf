@@ -20,7 +20,6 @@ resource "azurerm_service_plan" "main" {
   location            = data.azurerm_resource_group.main.location
   resource_group_name = data.azurerm_resource_group.main.name
   os_type             = "Linux"
-  reserved            = true
   sku_name            = "B1"
 
 }
@@ -64,7 +63,7 @@ resource "azurerm_linux_web_app" "main" {
   name                = "${var.prefix}-todo-app"
   location            = data.azurerm_resource_group.main.location
   resource_group_name = data.azurerm_resource_group.main.name
-  service_plan_id     = azurerm_app_service_plan.main.id
+  service_plan_id     = azurerm_service_plan.main.id
 
   site_config {
     application_stack {
