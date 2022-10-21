@@ -106,3 +106,7 @@ The github pipeline is set to trigger on pull requests to main and on pushes as 
 
 ## Deployment
 The app should deploy when you push to main the app can be seen  [`here`](https://aliwen-gh-b-todo-app.azurewebsites.net/)
+
+## Logs
+
+Logs should appear [here](https://aliwentodo.loggly.com)
