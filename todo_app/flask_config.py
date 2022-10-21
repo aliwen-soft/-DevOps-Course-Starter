@@ -19,8 +19,16 @@ class Config:
 
         self.LOG_LEVEL = os.environ.get("LOG_LEVEL")
 
-        self.LOGGLY_TOKEN  = os.environ.get("LOGGLY_TOKEN")
+        self.LOGGLY_TOKEN = os.environ.get("LOGGLY_TOKEN")
 
-        if not (self.DB_CONNECTION_STRING and self.DB_NAME):
+        if not (self.DB_CONNECTION_STRING):
             raise ValueError(
-                "Database secrets secrets not set up. Did you follow the setup instructions?")
+                "Database string not set up. Did you follow the setup instructions?")
+
+        if not (self.DB_NAME):
+            raise ValueError(
+                "Database name not set up. Did you follow the setup instructions?")
+
+        if not (self.CLIENT_ID):
+            raise ValueError(
+                "GH client id not set up. Did you follow the setup instructions?")
