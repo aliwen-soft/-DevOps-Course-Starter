@@ -12,7 +12,7 @@ on:
       - 'README.md'
 
 env:
-  TF_VAR_prefix: 'aliwen-gh'
+  TF_VAR_prefix: 'aliwen-gh-b'
   TF_VAR_todo_secret: ${{ secrets.TF_VAR_TODO_SECRET }}
   TF_VAR_github_id: ${{ secrets.TF_VAR_GITHUB_ID }}
   TF_VAR_github_secret: ${{ secrets.TF_VAR_GITHUB_SECRET }}
@@ -20,6 +20,7 @@ env:
   ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
   ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
   ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
+  ARM_ACCESS_KEY: ${{ secrets.ARM_ACCESS_KEY }}
 
 
 
