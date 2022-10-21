@@ -28,7 +28,3 @@ class Config:
         if not (self.DB_NAME):
             raise ValueError(
                 "Database name not set up. Did you follow the setup instructions?")
-
-        if not (self.CLIENT_ID):
-            raise ValueError(
-                "GH client id not set up. Did you follow the setup instructions?")
