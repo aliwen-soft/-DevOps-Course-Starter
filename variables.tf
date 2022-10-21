@@ -19,4 +19,3 @@ variable "github_secret" {
 variable "todo_secret" {
   sensitive = true
 }
-

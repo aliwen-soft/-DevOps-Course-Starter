@@ -5,6 +5,13 @@ terraform {
       version = ">= 2.92"
     }
   }
+  backend "azurerm" {
+    resource_group_name  = "Softwire21_AliceWenban_ProjectExercise"
+    storage_account_name = "aliwenstore"
+    container_name       = "aliwenblob"
+    key                  = "terraform.tfstate"
+  }
+
 }
 
 provider "azurerm" {
@@ -48,8 +55,6 @@ resource "azurerm_cosmosdb_account" "main" {
     location          = var.location
     failover_priority = 0
   }
-
-  lifecycle { prevent_destroy = true }
 }
 
 resource "azurerm_cosmosdb_mongo_database" "main" {
