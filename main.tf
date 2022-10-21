@@ -81,7 +81,7 @@ resource "azurerm_linux_web_app" "main" {
     "GH_CLIENT_ID"               = "${var.github_id}"
     "GH_CLIENT_SECRET"           = "${var.github_secret}"
     "SECRET_TODO"                = "${var.todo_secret}"
-    "LOGGLY_TOKEN"               = "${var.todo_secret}"
+    "LOGGLY_TOKEN"               = "${var.loggly_secret}"
     "LOG_LEVEL"                  = "${var.log_level}"
     "TODO_CONNECTION_STRING"     = azurerm_cosmosdb_account.main.connection_strings[0]
     "TODO_DB_NAME"               = azurerm_cosmosdb_mongo_database.main.name
