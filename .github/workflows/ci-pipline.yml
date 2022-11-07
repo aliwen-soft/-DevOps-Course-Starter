@@ -16,6 +16,7 @@ env:
   TF_VAR_todo_secret: ${{ secrets.TF_VAR_TODO_SECRET }}
   TF_VAR_github_id: ${{ secrets.TF_VAR_GITHUB_ID }}
   TF_VAR_github_secret: ${{ secrets.TF_VAR_GITHUB_SECRET }}
+  TF_VAR_loggly_secret: ${{ secrets.LOGGLY_TOKEN }}
   ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
   ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
   ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
@@ -36,7 +37,7 @@ jobs:
     name: Deploy main branch
     needs: build
     runs-on: ubuntu-latest
-    if: (github.event_name == 'push')
+    if: (github.event_name == 'push' && github.ref == 'refs/heads/main')
     steps:
     - uses: actions/checkout@v2
     - name: Login to Docker Hub

@@ -17,6 +17,7 @@ mongomock = "^4.1.2"
 pytest-env = "^0.6.2"
 Flask-Login = "^0.6.2"
 MarkupSafe = "2.0.1"
+loggly-python-handler = "^1.0.1"
 
 [tool.poetry.dev-dependencies]
 autopep8 = "^1.7.0"

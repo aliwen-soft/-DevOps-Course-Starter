@@ -17,6 +17,14 @@ class Config:
 
         self.LOGIN_DISABLED = os.environ.get('LOGIN_DISABLED') == 'True'
 
-        if not (self.DB_CONNECTION_STRING and self.DB_NAME):
+        self.LOG_LEVEL = os.environ.get("LOG_LEVEL")
+
+        self.LOGGLY_TOKEN = os.environ.get("LOGGLY_TOKEN")
+
+        if not (self.DB_CONNECTION_STRING):
             raise ValueError(
-                "Database secrets secrets not set up. Did you follow the setup instructions?")
+                "Database string not set up. Did you follow the setup instructions?")
+
+        if not (self.DB_NAME):
+            raise ValueError(
+                "Database name not set up. Did you follow the setup instructions?")
